@@ -1,4 +1,7 @@
 
+from fleet import DOMAIN_EVENTS_MANAGER
+
+from fleet.domain.shared.domain_events import DomainEvent
 from fleet.domain.shared.fleet_ids import SubFleetId, FleetId
 
 from fleet.domain.contract.contract import ContractId
@@ -29,7 +32,9 @@ class Fleet:
 
    def addSubFleet(self, subFleetId: SubFleetId ,name, operator, origin) -> SubFleet:
        newSubFleet = SubFleet(  subFleetId, self.fleetId(), name, self.provider(), operator, origin)
-       #push(NewSubFleetInFleetEvent)
+       
+       DOMAIN_EVENTS_MANAGER.publish(SubFleetWasAddedEvent(self.fleetId, subFleetId))
+
        return newSubFleet
  
 
@@ -39,3 +44,17 @@ class FleetRepository:
       raise Exception("I am an Interface, please use an Implémentation")
    def load(self, fleetId:FleetId) -> Fleet:
       raise Exception("I am an Interface, please use an Implémentation")
+
+
+class SubFleetWasAddedEvent(DomainEvent):
+
+    def __init__(self, fleetId: FleetId, subFleetId: SubFleetId):
+        super().__init__()
+        self.__fleetId = fleetId
+        self.__subFleetId = subFleetId
+
+    def fleetId(self):
+        return self.__subFleetId
+
+    def subFleetId(self):
+        return self.__subFleetId()

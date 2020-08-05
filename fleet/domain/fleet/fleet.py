@@ -32,8 +32,8 @@ class Fleet:
 
    def addSubFleet(self, subFleetId: SubFleetId ,name, operator, origin) -> SubFleet:
        newSubFleet = SubFleet(  subFleetId, self.fleetId(), name, self.provider(), operator, origin)
-       
-       DOMAIN_EVENTS_MANAGER.publish(SubFleetWasAddedEvent(self.fleetId, subFleetId))
+       # TODO : est-ce que les evt ne devrait pas etre de niveau applicatif pour valider la persistence avant d'envoyer l'evt ?
+       DOMAIN_EVENTS_MANAGER.publish(SubFleetWasAddedEvent(self.fleetId(), subFleetId))
 
        return newSubFleet
  
@@ -54,7 +54,7 @@ class SubFleetWasAddedEvent(DomainEvent):
         self.__subFleetId = subFleetId
 
     def fleetId(self):
-        return self.__subFleetId
+        return self.__fleetId
 
     def subFleetId(self):
-        return self.__subFleetId()
+        return self.__subFleetId

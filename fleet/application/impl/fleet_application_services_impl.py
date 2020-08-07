@@ -21,7 +21,9 @@ class FleetApplicationServicesImpl:
       subFleetId = self.subFleetRepository().getNextId()
       newSubFleet = fleet.addSubFleet(subFleetId, name, operator, origin)
 
-      return self.subFleetRepository().store(newSubFleet)
+      subFleetId = self.subFleetRepository().store(newSubFleet)
+      
+      return subFleetId
 
 
     def fleetRepository(self) -> FleetRepository:

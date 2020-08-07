@@ -1,12 +1,15 @@
 import uuid
 
+from fleet.infrastructure import DATA_BASE 
+
 from fleet.domain.shared.fleet_ids import FleetId
 from fleet.domain.fleet.fleet import FleetRepository, Fleet
 
 class FleetInMemoryRepository(FleetRepository):
     
     def __init__(self):
-        self.fleets = {}
+        self.fleets = DATA_BASE["TABLE_FLEETS"]
+        #self.fleets = {}
     
     def store(self, fleet: Fleet) -> FleetId:
         self.fleets[str(fleet.fleetId())] = fleet

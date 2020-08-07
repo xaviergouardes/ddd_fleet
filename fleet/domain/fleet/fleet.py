@@ -32,8 +32,8 @@ class Fleet:
 
    def addSubFleet(self, subFleetId: SubFleetId ,name, operator, origin) -> SubFleet:
        newSubFleet = SubFleet(  subFleetId, self.fleetId(), name, self.provider(), operator, origin)
-       # TODO : est-ce que les evt ne devrait pas etre de niveau applicatif pour valider la persistence avant d'envoyer l'evt ?
-       DOMAIN_EVENTS_MANAGER.publish(SubFleetWasAddedEvent(self.fleetId(), subFleetId))
+       # FIXME : est-ce que les evt ne devrait pas etre de niveau applicatif pour valider la persistence avant d'envoyer l'evt ?
+       #DOMAIN_EVENTS_MANAGER.publish(SubFleetWasAddedEvent(self.fleetId(), subFleetId))
 
        return newSubFleet
  
@@ -42,9 +42,12 @@ class Fleet:
 class FleetRepository:
    def getNextId(self) -> FleetId:
       raise Exception("I am an Interface, please use an Implémentation")
+
    def load(self, fleetId:FleetId) -> Fleet:
       raise Exception("I am an Interface, please use an Implémentation")
 
+   def store(self, Fleet) -> FleetId:
+       raise Exception("I am an Interface, please use an Implémentation")
 
 class SubFleetWasAddedEvent(DomainEvent):
 

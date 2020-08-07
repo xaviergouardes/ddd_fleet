@@ -38,3 +38,6 @@ class SubFleetRepository:
 
     def store(self, SubFleet) -> SubFleetId:
        raise Exception("I am an Interface, please use an Implémentation")
+
+    def load(self, subFleetId:SubFleetId) -> SubFleet:
+      raise Exception("I am an Interface, please use an Implémentation")

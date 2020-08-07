@@ -1,9 +1,10 @@
 
 from fleet.domain.shared.fleet_ids import FleetId, SubFleetId
 
-from fleet.domain.fleet.fleet import Fleet, FleetRepository
+from fleet.domain.fleet.fleet import Fleet, FleetRepository, SubFleetWasAddedEvent
 from fleet.domain.fleet.sub_fleet import SubFleet, SubFleetRepository
 
+from fleet import DOMAIN_EVENTS_MANAGER
 
 class FleetApplicationServicesImpl:
     
@@ -23,6 +24,10 @@ class FleetApplicationServicesImpl:
 
       subFleetId = self.subFleetRepository().store(newSubFleet)
       
+      print("newSubFleet.fleetId() = ", newSubFleet.fleetId(), "newSubFleet.subFleetId() = ", newSubFleet.subFleetId())
+      #FIXME: j'ai été obligé de remonter le push d'event car sinon le listener fait un find sur une sous-flottre qui n'est pas encore dans la base.
+      DOMAIN_EVENTS_MANAGER.publish(SubFleetWasAddedEvent(newSubFleet.fleetId(), newSubFleet.subFleetId()))
+
       return subFleetId
 
 

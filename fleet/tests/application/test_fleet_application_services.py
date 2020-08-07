@@ -1,5 +1,7 @@
 import unittest
 
+from fleet.infrastructure import DATA_BASE
+
 from fleet.domain.shared.fleet_ids import FleetId, SubFleetId
 
 from fleet.domain.fleet.fleet import Fleet, FleetRepository
@@ -35,6 +37,7 @@ class Test_FleetApplicationServices(unittest.TestCase):
         for subFleet in self.subFleetRepository.findAllSubFleets():
             print(str(subFleet), '\n')
 
+        print("DATA_BASE", DATA_BASE["TABLE_FLEET_WITH_SUB_FLEETS"] )
         self.assertTrue(True)
 
 if __name__ == '__main__':

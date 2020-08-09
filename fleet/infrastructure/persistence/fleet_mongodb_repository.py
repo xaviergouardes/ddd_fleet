@@ -24,9 +24,7 @@ class FleetMongoDbRepository(FleetRepository):
        #print("load for " + fleetId.idString()) 
        fleetIdMongo = FleetIdMapper().toMongoDb(fleetId)
        fleetMongo = self.__db.fleets.find_one(fleetIdMongo)
-       #FIXME : Encapsuler la tranformation vers le dict
-       dico = dict(fleetMongo)
-       fleet = FleetMapper().toFleet(dico)
+       fleet = FleetMapper().toFleet(fleetMongo)
        return  fleet
 
 

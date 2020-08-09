@@ -49,6 +49,9 @@ class FleetRepository:
    def store(self, Fleet) -> FleetId:
        raise Exception("I am an Interface, please use an Implémentation")
 
+   def getNextId(self) -> FleetId:
+       raise Exception("I am an Interface, please use an Implémentation")
+
 class SubFleetWasAddedEvent(DomainEvent):
 
     def __init__(self, fleetId: FleetId, subFleetId: SubFleetId):

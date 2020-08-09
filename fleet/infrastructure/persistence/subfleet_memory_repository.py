@@ -11,7 +11,7 @@ class SubFleetInMemoryRepository(SubFleetRepository):
     
     def store(self, subFleet: SubFleet) -> SubFleetId:
         self.subFleets[str(subFleet.subFleetId())] = subFleet
-        return subFleet.fleetId()
+        return subFleet.subFleetId()
 
     def load(self, subFleetId: SubFleetId) -> SubFleet:
        #print("load for " + fleetId.idString()) 

@@ -1,5 +1,8 @@
 from fleet import DOMAIN_EVENTS_MANAGER
 from fleet.infrastructure.messaging.sub_fleet_added_listener import SubFleetAddedListener
 
-listener = SubFleetAddedListener()
-DOMAIN_EVENTS_MANAGER.subscribe(listener)
+from fleet.infrastructure.persistence.fleet_memory_repository import FleetInMemoryRepository
+from fleet.infrastructure.persistence.subfleet_memory_repository import SubFleetInMemoryRepository
+
+__listener = SubFleetAddedListener( FleetInMemoryRepository(), SubFleetInMemoryRepository() )
+DOMAIN_EVENTS_MANAGER.subscribe(__listener)

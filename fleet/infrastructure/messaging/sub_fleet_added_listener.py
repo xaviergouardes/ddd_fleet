@@ -5,18 +5,13 @@ from fleet.domain.fleet.sub_fleet import SubFleet, SubFleetId, SubFleetRepositor
 
 from fleet.domain.shared.domain_events import Suscriber
 
-from fleet.infrastructure.persistence.fleet_memory_repository import FleetInMemoryRepository
-from fleet.infrastructure.persistence.subfleet_memory_repository import SubFleetInMemoryRepository
-
 from fleet.infrastructure import DATA_BASE
 
 class SubFleetAddedListener(Suscriber):
     
-    def __init__(self):
-        super().__init__()
-        # TODO : Travailler pour faire une réelle injection, idem pour le "dataSource" DATA_BASE
-        self.__fleetRepository = FleetInMemoryRepository()
-        self.__subFleetRepository = SubFleetInMemoryRepository()
+    def __init__(self, fleetRepository:FleetRepository, subFleetRepository:SubFleetRepository):
+        self.__fleetRepository = fleetRepository
+        self.__subFleetRepository = subFleetRepository
     
     def handleEvent(self, event: SubFleetWasAddedEvent):
         print( "SubFleetAddedListener : fleetId [{}] subFleetId [{}] \n".format(event.fleetId(), event.subFleetId()) )
